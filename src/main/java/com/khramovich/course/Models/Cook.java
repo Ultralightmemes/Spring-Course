@@ -26,6 +26,10 @@ public class Cook {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
     public String name;
+    @ManyToMany
+    @JoinTable(name = "cook_dish", joinColumns = @JoinColumn(name = "cook_id"),
+            inverseJoinColumns = @JoinColumn(name = "dish_id"))
+    private Set<Dish> dishes;
     public String surname;
     public String position;
     public String education;

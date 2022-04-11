@@ -54,11 +54,6 @@ public class CookController {
         if (error != null){
             model.addAttribute("error", "Username or password is incorrect");
         }
-
-        if(logout!= null){
-            model.addAttribute("message", "Logged out successfully");
-        }
-
         return "login";
     }
 
@@ -71,12 +66,14 @@ public class CookController {
     public String welcome(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
-        System.out.println(currentPrincipalName);
-        String name = null;
+        String name = "Таинственный гость";
+        boolean is_authenticated = false;
         if (!currentPrincipalName.equals("anonymousUser")){
             name = currentPrincipalName;
+            is_authenticated = true;
         }
-        model.addAttribute("name", currentPrincipalName);
+        model.addAttribute("name", name);
+        model.addAttribute("is_authenticated", is_authenticated);
         return "welcome";
     }
 

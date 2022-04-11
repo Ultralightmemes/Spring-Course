@@ -13,18 +13,17 @@
 <div class="container">
 
     <form method="POST" th:action="@{/login}" class="form">
-        <h2 class="form-heading">Log in</h2>
+        <h2 class="form-heading">Вход</h2>
 
         <div class="form-group">
-            <span th:utext="${message}"></span>
-            <input name="username" type="text" class="form-control" placeholder="Username"
+            <input name="username" type="text" class="form-control mb-3" placeholder="Username"
                    autofocus="true"/>
-            <input name="password" type="password" class="form-control" placeholder="Password"/>
-            <span th:utext="${error}"></span>
+            <input name="password" type="password" class="form-control mb-3" placeholder="Password"/>
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
-            <h4 class="text-center"><a th:href="@{/registration}">Create an account</a></h4>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Вход</button>
+            <span th:utext="${error}"></span>
+            <h4 class="text-center"><a th:href="@{/registration}">Создать аккаунт</a></h4>
         </div>
 
     </form>

@@ -12,18 +12,12 @@
 
 <div class="container">
 
-    <form method="POST" th:modelAttribute="userForm" class="form" th:action="@{/registration}">
-        <h2>Create your account</h2>
-        <div>
-            <input type="text" name="username" class="form-control" placeholder="Username" autofocus="true">
-        </div>
-        <div>
-            <input type="text" name="password" class="form-control" placeholder="Password" autofocus="true">
-        </div>
-        <div>
-            <input type="text" name="confirmPassword" class="form-control" placeholder="Confirm Password"
+    <form method="POST" th:modelAttribute="userForm" class="form-group" th:action="@{/registration}">
+        <h2>Создание аккаунта</h2>
+            <input type="text" name="username" class="form-control mb-3" placeholder="Username" autofocus="true">
+            <input type="password" name="password" class="form-control mb-3" placeholder="Password" autofocus="true">
+            <input type="password" name="confirmPassword" class="form-control mb-3" placeholder="Confirm Password"
                    autofocus="true">
-        </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
     </form>
 
