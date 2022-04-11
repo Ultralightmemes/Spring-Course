@@ -33,4 +33,5 @@ public class CookDetailServiceImpl implements UserDetailsService {
         }
         return new User(cook.getUsername(), cook.getPassword(), grantedAuthorities);
     }
+
 }
