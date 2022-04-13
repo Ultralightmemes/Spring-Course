@@ -9,9 +9,13 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col"></div>
         <div class="col">
-            <form method="post" th:action="@{/main/account}" th:modeAttribute="updateForm">
+            <img th:src="${'data:image/jpeg;charset=utf-8;base64,' + avatar}" class="rounded float-start"
+                 style="width: 300px; height: 300px"/>
+        </div>
+        <div class="col">
+            <form method="post" th:action="@{/main/account}" th:modeAttribute="updateForm" id="userForm"
+                  enctype="multipart/form-data">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-sm">Имя</span>
                     <input name="name" type="text" class="form-control" aria-label="Sizing example input"
@@ -37,18 +41,23 @@
                            aria-describedby="inputGroup-sizing-sm">
                 </div>
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-sm5">Образование</span>
-                    <input name="birthday" type="date" class="form-control" aria-label="Sizing example input"
+                    <span class="input-group-text" id="inputGroup-sizing-sm5">Дата рождения</span>
+                    <input name="date" type="date" class="form-control" aria-label="Sizing example input"
                            th:value="${birthday}"
                            aria-describedby="inputGroup-sizing-sm">
                 </div>
-                <button type="submit" class="btn btn-warning">Изменить</button>
+                <div class="input-group mb-3">
+                    <input type="file" name="file" class="form-control" aria-label="Sizing example input"
+                           accept="image/png, image/jpeg" placeholder="Файл для аватара">
+                </div>
+                <!--                <button type="submit" class="btn btn-warning">Изменить</button>-->
             </form>
+            <button type="submit" class="btn btn-warning" onclick="document.forms['userForm'].submit()">Изменить
+            </button>
         </div>
         <div class="col"></div>
     </div>
 </div>
-
-</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </body>
 </html>

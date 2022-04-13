@@ -27,7 +27,6 @@ public class CookController {
 
     @GetMapping("/registration")
     public String registration(Model model){
-        System.out.println("fewf");
         model.addAttribute("userForm", new Cook());
         return "registration";
     }
@@ -35,7 +34,6 @@ public class CookController {
     @PostMapping("/registration")
     public String registration(@ModelAttribute("userForm") Cook userForm, BindingResult bindingResult, Model model){
         cookValidator.validate(userForm, bindingResult);
-        System.out.println("fewf");
         if(bindingResult.hasErrors()){
             return "registration";
         }

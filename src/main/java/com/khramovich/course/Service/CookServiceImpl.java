@@ -36,4 +36,9 @@ public class CookServiceImpl implements CookService{
     public Cook findByUsername(String username) {
         return cookDao.findByUsername(username);
     }
+
+    @Override
+    public void update(Cook cook) {
+        cookDao.save(cook);
+    }
 }

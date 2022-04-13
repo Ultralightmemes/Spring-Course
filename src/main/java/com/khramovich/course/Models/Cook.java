@@ -34,4 +34,6 @@ public class Cook {
     public String position;
     public String education;
     public Date birthday;
+    @Lob
+    public byte[] image;
 }
