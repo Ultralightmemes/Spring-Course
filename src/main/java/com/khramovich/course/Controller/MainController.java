@@ -40,8 +40,11 @@ public class MainController {
             model.addAttribute("position", cook.getPosition());
             model.addAttribute("education", cook.getEducation());
             model.addAttribute("birthday", cook.getBirthday());
-            if (cook.getImage().length != 0){
+            if (cook.getImage() != null){
                 model.addAttribute("avatar", addImage(cook.getImage()));
+            }
+            else {
+                model.addAttribute("avatar", null);
             }
         }
 

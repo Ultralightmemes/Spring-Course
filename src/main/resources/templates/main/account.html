@@ -10,7 +10,9 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <img th:src="${'data:image/jpeg;charset=utf-8;base64,' + avatar}" class="rounded float-start"
+            <img th:if="${avatar != null}" th:src="${'data:image/jpeg;charset=utf-8;base64,' + avatar}" class="rounded float-start"
+                 style="width: 300px; height: 300px"/>
+            <img th:if="${avatar == null}" src="/resources/public/images/avatar.png" class="rounded float-start"
                  style="width: 300px; height: 300px"/>
         </div>
         <div class="col">
