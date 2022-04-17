@@ -9,10 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -54,5 +51,11 @@ public class DIshController {
     public String showDishes(Model model){
         model.addAttribute("dishes", dishDao.findAll());
         return "dish/show";
+    }
+
+    @GetMapping("/show/{id}")
+    public String showDish(@PathVariable("id") Long dishId, Model model){
+        model.addAttribute("dish", dishDao.getById(dishId));
+        return "dish/dish";
     }
 }

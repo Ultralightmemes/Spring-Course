@@ -1,5 +1,7 @@
 package com.khramovich.course.Controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.khramovich.course.Models.Cook;
 import com.khramovich.course.Service.CookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Base64;
-import java.util.Date;
+import java.util.*;
 
 @Controller
 @RequestMapping("/main")
@@ -25,9 +29,28 @@ public class MainController {
     private CookService cookService;
 
     @GetMapping
-    public String showMainPage(Model model) {
+    public String showMainPage(Model model, HttpServletRequest request) throws IOException {
+        if (model.getAttribute("weather") == null) {
+            model.addAttribute("city", "Minsk");
+            Map<String, String> map = getWeather("Minsk");
+            model.addAttribute("weather", map.get("weather"));
+            model.addAttribute("icon", map.get("icon"));
+            model.addAttribute("text", map.get("text"));
+        }
         return "main/main";
     }
+
+//    @PostMapping
+//    public String showWeather(@ModelAttribute("city") String city, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) throws IOException {
+////        redirectAttributes.addFlashAttribute("weather", getWeather(city));
+//        Map<String, String> map = getWeather("Minsk");
+//        redirectAttributes.addFlashAttribute("weather", map.get("weather"));
+//        redirectAttributes.addFlashAttribute("icon", map.get("icon"));
+//        redirectAttributes.addFlashAttribute("text", map.get("text"));
+//        redirectAttributes.addFlashAttribute("city", city);
+//        String referer = request.getHeader("Referer");
+//        return "redirect:" + referer;
+//    }
 
     @GetMapping("/account")
     public String manageAccount(Model model) throws UnsupportedEncodingException {
@@ -40,10 +63,9 @@ public class MainController {
             model.addAttribute("position", cook.getPosition());
             model.addAttribute("education", cook.getEducation());
             model.addAttribute("birthday", cook.getBirthday());
-            if (cook.getImage() != null){
+            if (cook.getImage() != null) {
                 model.addAttribute("avatar", addImage(cook.getImage()));
-            }
-            else {
+            } else {
                 model.addAttribute("avatar", null);
             }
         }
@@ -92,4 +114,63 @@ public class MainController {
         byte[] encodeBase64 = Base64.getEncoder().encode(bytes);
         return new String(encodeBase64, "UTF-8");
     }
+
+    private Map getWeather(String city) throws IOException {
+        URL url = new URL("http://api.weatherapi.com/v1/current.json?key=b7420ee867b648db80a150055221504&q=" + city + "&aqi=no");
+        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+        httpURLConnection.setRequestMethod("GET");
+        httpURLConnection.connect();
+        Map<String, String> map = new HashMap<>();
+        int responseCode = httpURLConnection.getResponseCode();
+        if (responseCode != 200) {
+            return map;
+        }
+        String json = "";
+        String weather = null;
+        if (responseCode != 200)
+            throw new RuntimeException("HttpResponseCode: " + responseCode);
+        else {
+            Scanner sc = new Scanner(url.openStream());
+            while (sc.hasNext()) {
+                json += sc.nextLine();
+            }
+            sc.close();
+            Gson gson = new Gson();
+            System.out.println(json);
+            JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
+
+            map.put("weather", jsonObject.get("current").getAsJsonObject().get("temp_c").getAsString());
+            map.put("icon", jsonObject.get("current").getAsJsonObject().get("condition").getAsJsonObject().get("icon").getAsString());
+            map.put("text", jsonObject.get("current").getAsJsonObject().get("condition").getAsJsonObject().get("text").getAsString());
+//            weather = jsonObject.get("current").getAsJsonObject().get("temp_c").getAsString();
+        }
+        return map;
+    }
+
+    private String getCity(String ip) throws IOException {
+        System.out.println(ip);
+        URL url = new URL("http://ip-api.com/json/" + ip);
+        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+        httpURLConnection.setRequestMethod("GET");
+        httpURLConnection.connect();
+        int responseCode = httpURLConnection.getResponseCode();
+        String json = "";
+        String city = null;
+        if (responseCode != 200)
+            throw new RuntimeException("HttpResponseCode: " + responseCode);
+        else {
+            Scanner sc = new Scanner(url.openStream());
+            while (sc.hasNext()) {
+                json += sc.nextLine();
+            }
+            sc.close();
+            Gson gson = new Gson();
+            System.out.println(json);
+            JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
+            city = jsonObject.get("city").getAsString();
+        }
+        return city;
+    }
+
+
 }

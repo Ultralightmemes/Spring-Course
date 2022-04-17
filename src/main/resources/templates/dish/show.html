@@ -24,7 +24,7 @@
                         <h5 class="card-title" th:text="${dish.getName()}"></h5>
                         <p class="card-text" th:text="${'Состав: ' + dish.getIngredients()}"></p>
                         <p class="card-text" th:text="${'Страна: ' + dish.getCountry()}"></p>
-                        <a href="#" class="btn btn-primary mt-5">Подробней</a>
+                        <a th:href="@{'/dishes/show/' + ${dish.getDish_id()}}" class="btn btn-primary mt-5">Подробней</a>
                         <h4 class="card-text mt-5" id="price" th:text="${dish.getPrice() + ' руб.'}"></h4>
                     </div>
                 </div>
