@@ -1,8 +1,8 @@
 package com.khramovich.course.Controller;
 
-import com.khramovich.course.Models.Cook;
-import com.khramovich.course.Service.CookService;
-import com.khramovich.course.Service.SecurityService;
+import com.khramovich.course.models.Cook;
+import com.khramovich.course.service.CookService;
+import com.khramovich.course.service.SecurityService;
 import com.khramovich.course.Validator.CookValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

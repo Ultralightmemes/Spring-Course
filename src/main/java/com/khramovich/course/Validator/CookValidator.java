@@ -1,7 +1,7 @@
 package com.khramovich.course.Validator;
 
-import com.khramovich.course.Models.Cook;
-import com.khramovich.course.Service.CookService;
+import com.khramovich.course.models.Cook;
+import com.khramovich.course.service.CookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

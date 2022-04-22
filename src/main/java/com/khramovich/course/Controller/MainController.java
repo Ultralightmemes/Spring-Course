@@ -2,8 +2,8 @@ package com.khramovich.course.Controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.khramovich.course.Models.Cook;
-import com.khramovich.course.Service.CookService;
+import com.khramovich.course.models.Cook;
+import com.khramovich.course.service.CookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;

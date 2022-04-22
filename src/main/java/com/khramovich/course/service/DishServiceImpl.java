@@ -1,7 +1,7 @@
-package com.khramovich.course.Service;
+package com.khramovich.course.service;
 
-import com.khramovich.course.DAO.DishDao;
-import com.khramovich.course.Models.Dish;
+import com.khramovich.course.repository.DishDao;
+import com.khramovich.course.models.Dish;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

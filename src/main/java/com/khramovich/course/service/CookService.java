@@ -1,6 +1,6 @@
-package com.khramovich.course.Service;
+package com.khramovich.course.service;
 
-import com.khramovich.course.Models.Cook;
+import com.khramovich.course.models.Cook;
 
 public interface CookService {
     void save(Cook cook);

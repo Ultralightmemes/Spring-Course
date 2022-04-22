@@ -1,4 +1,4 @@
-package com.khramovich.course.Models;
+package com.khramovich.course.models;
 
 import lombok.*;
 

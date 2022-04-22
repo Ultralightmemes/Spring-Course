@@ -1,8 +1,8 @@
-package com.khramovich.course.Service;
+package com.khramovich.course.service;
 
-import com.khramovich.course.DAO.CookDao;
-import com.khramovich.course.Models.Cook;
-import com.khramovich.course.Models.Role;
+import com.khramovich.course.repository.CookDao;
+import com.khramovich.course.models.Cook;
+import com.khramovich.course.models.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

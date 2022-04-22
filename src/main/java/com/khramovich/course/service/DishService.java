@@ -1,6 +1,6 @@
-package com.khramovich.course.Service;
+package com.khramovich.course.service;
 
-import com.khramovich.course.Models.Dish;
+import com.khramovich.course.models.Dish;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.khramovich.course.Service;
+package com.khramovich.course.service;
 
 public interface SecurityService {
     String findLoggedInUsername();
