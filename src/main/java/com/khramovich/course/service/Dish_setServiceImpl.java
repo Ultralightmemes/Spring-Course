@@ -3,9 +3,11 @@ package com.khramovich.course.service;
 import com.khramovich.course.repository.Dish_setDao;
 import com.khramovich.course.models.Dish_set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class Dish_setServiceImpl implements Dish_setService{
 
     @Autowired

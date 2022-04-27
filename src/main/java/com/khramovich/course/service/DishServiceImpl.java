@@ -22,4 +22,9 @@ public class DishServiceImpl implements DishService{
     public List<Dish> findAll() {
         return dishDao.findAll();
     }
+
+    @Override
+    public Dish findById(Long id) {
+        return dishDao.getById(id);
+    }
 }

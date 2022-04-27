@@ -8,4 +8,6 @@ public interface DishService {
     void save(Dish dish);
 
     List<Dish> findAll();
+
+    Dish findById(Long id);
 }

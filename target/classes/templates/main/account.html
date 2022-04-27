@@ -57,7 +57,11 @@
             <button type="submit" class="btn btn-warning" onclick="document.forms['userForm'].submit()">Изменить
             </button>
         </div>
-        <div class="col"></div>
+        <div class="col">
+            <form method="post" th:action="@{/main/entry}">
+                <button type="submit" class="btn btn-primary">Администратор</button>
+            </form>
+        </div>
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

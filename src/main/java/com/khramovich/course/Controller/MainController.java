@@ -3,6 +3,7 @@ package com.khramovich.course.Controller;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.khramovich.course.models.Cook;
+import com.khramovich.course.repository.RoleDao;
 import com.khramovich.course.service.CookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -38,18 +39,6 @@ public class MainController {
         }
         return "main/main";
     }
-
-//    @PostMapping
-//    public String showWeather(@ModelAttribute("city") String city, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) throws IOException {
-////        redirectAttributes.addFlashAttribute("weather", getWeather(city));
-//        Map<String, String> map = getWeather("Minsk");
-//        redirectAttributes.addFlashAttribute("weather", map.get("weather"));
-//        redirectAttributes.addFlashAttribute("icon", map.get("icon"));
-//        redirectAttributes.addFlashAttribute("text", map.get("text"));
-//        redirectAttributes.addFlashAttribute("city", city);
-//        String referer = request.getHeader("Referer");
-//        return "redirect:" + referer;
-//    }
 
     @GetMapping("/account")
     public String manageAccount(Model model) throws UnsupportedEncodingException {
@@ -98,6 +87,16 @@ public class MainController {
         return "redirect:" + referer;
     }
 
+    @PostMapping("/entry")
+    public String adminEntry() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"))) {
+            return "redirect:../admin/main";
+        } else {
+            return "redirect:../main/account";
+        }
+    }
+
     private java.sql.Date parseDate(String date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date parsed = null;
@@ -115,7 +114,8 @@ public class MainController {
     }
 
     private Map getWeather(String city) throws IOException {
-        URL url = new URL("http://api.weatherapi.com/v1/current.json?key=b7420ee867b648db80a150055221504&q=" + city + "&aqi=no");
+        URL url = new URL("http://api.weatherapi.com/v1/current.json?key=b7420ee867b648db80a150055221504&q="
+                + city + "&aqi=no");
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
         httpURLConnection.setRequestMethod("GET");
         httpURLConnection.connect();
@@ -138,38 +138,19 @@ public class MainController {
             System.out.println(json);
             JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
 
-            map.put("weather", jsonObject.get("current").getAsJsonObject().get("temp_c").getAsString());
-            map.put("icon", jsonObject.get("current").getAsJsonObject().get("condition").getAsJsonObject().get("icon").getAsString());
-            map.put("text", jsonObject.get("current").getAsJsonObject().get("condition").getAsJsonObject().get("text").getAsString());
-//            weather = jsonObject.get("current").getAsJsonObject().get("temp_c").getAsString();
+            map.put("weather", jsonObject
+                    .get("current").getAsJsonObject()
+                    .get("temp_c").getAsString());
+            map.put("icon", jsonObject
+                    .get("current").getAsJsonObject()
+                    .get("condition").getAsJsonObject()
+                    .get("icon")
+                    .getAsString());
+            map.put("text", jsonObject
+                    .get("current").getAsJsonObject()
+                    .get("condition").getAsJsonObject()
+                    .get("text").getAsString());
         }
         return map;
     }
-
-    private String getCity(String ip) throws IOException {
-        System.out.println(ip);
-        URL url = new URL("http://ip-api.com/json/" + ip);
-        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-        httpURLConnection.setRequestMethod("GET");
-        httpURLConnection.connect();
-        int responseCode = httpURLConnection.getResponseCode();
-        String json = "";
-        String city = null;
-        if (responseCode != 200)
-            throw new RuntimeException("HttpResponseCode: " + responseCode);
-        else {
-            Scanner sc = new Scanner(url.openStream());
-            while (sc.hasNext()) {
-                json += sc.nextLine();
-            }
-            sc.close();
-            Gson gson = new Gson();
-            System.out.println(json);
-            JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
-            city = jsonObject.get("city").getAsString();
-        }
-        return city;
-    }
-
-
 }

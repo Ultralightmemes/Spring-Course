@@ -72,9 +72,4 @@ public class CookController {
         model.addAttribute("is_authenticated", is_authenticated);
         return "welcome";
     }
-
-    @GetMapping("/admin")
-    public String admin(Model model){
-        return "admin";
-    }
 }

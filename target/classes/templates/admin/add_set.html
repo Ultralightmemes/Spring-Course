@@ -8,15 +8,20 @@
     <link rel="stylesheet" href="/resources/public/css/add_set.css">
 </head>
 <body>
-<form th:method="post" th:action="@{/dishes/add/admin}">
-    <nav class="navbar navbar-light bg-light">
+<form th:method="post" th:action="@{/admin/set}" enctype="multipart/form-data">
+    <nav class="navbar navbar-light bg-light mb-2">
         <div class="container-fluid">
-            <div class="col">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="name">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <div class="col-4">
+                <input class="form-control me-2" type="search" placeholder="Название" aria-label="Search" name="name">
+                <button class="btn btn-outline-success" type="submit">Сохранить</button>
             </div>
-            <div class="col">
-                <textarea name="description"></textarea>
+            <div class="col-5">
+                <textarea name="description" placeholder="Описание"
+                          style="width: 580px; height: 50px; margin-top: -1em; margin-left: 2em; resize: none"></textarea>
+            </div>
+            <div class="col-3">
+                <input type="file" name="file" class="form-control" aria-label="Sizing example input"
+                       accept="image/png, image/jpeg" placeholder="Изображение сета">
             </div>
         </div>
     </nav>
@@ -26,17 +31,15 @@
                 <div class="card me-3" style="width: 15rem;">
                     <img th:if="${dish.getImage() != null}"
                          th:src="${'data:image/jpeg;charset=utf-8;base64,' + dish.parseImage()}"
-                         class="card-img-top mt-1"
-                         alt="Фотография" style="width: 200px; height: 200px">
+                         class="card-img-top mt-1" alt="Фотография" style="width: 200px; height: 200px">
                     <img th:if="${dish.getImage() == null}" src="/resources/public/images/blank.png"
-                         class="card-img-top mt-1"
-                         alt="Фотография" style="width: 200px; height: 200px">
+                         class="card-img-top mt-1" alt="Фотография" style="width: 200px; height: 200px">
                     <div class="card-body">
                         <h5 class="card-title" th:text="${dish.getName()}"></h5>
                         <p class="card-text" th:text="${dish.getIngredients()}"></p>
                         <div class="formrow" style="max-width: 200px">
-                            <input class="checkbox" type="checkbox" name="check"
-                                   th:id="${'check'+ dish.getDish_id()}" th:value="${dish.getDish_id()}">
+                            <input class="checkbox" type="checkbox" name="check" th:id="${'check'+ dish.getDish_id()}"
+                                   th:value="${dish.getDish_id()}">
                             <label class="checklabel" th:for="${'check'+ dish.getDish_id()}"
                                    style="max-width: 200px">Добавить</label>
                         </div>
