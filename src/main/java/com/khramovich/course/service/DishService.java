@@ -10,4 +10,6 @@ public interface DishService {
     List<Dish> findAll();
 
     Dish findById(Long id);
+
+    void deleteById(Long id);
 }

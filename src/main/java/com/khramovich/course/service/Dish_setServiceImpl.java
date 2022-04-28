@@ -22,4 +22,10 @@ public class Dish_setServiceImpl implements Dish_setService{
     public List<Dish_set> findAll(){
         return dish_setDao.findAll();
     }
+
+    @Override
+    public void deleteById(Long id){ dish_setDao.deleteById(id);}
+
+    @Override
+    public Dish_set getById(Long id) { return dish_setDao.getById(id);}
 }

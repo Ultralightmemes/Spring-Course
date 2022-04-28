@@ -17,13 +17,13 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Управление сетами</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{../admin/edit}">Управление сетами</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{../admin/set}">Создать сет</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{../dishes/add}">Управление пользователями</a>
+                    <a class="nav-link" th:href="@{../admin/users}">Управление пользователями</a>
                 </li>
             </ul>
             <form class="d-flex" th:method="GET" th:action="@{/main/account}">

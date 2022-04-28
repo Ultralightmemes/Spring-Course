@@ -14,7 +14,8 @@
         <div class="col-8">
             <th:block th:each="dish : ${dishes}">
                 <div class="card mb-3">
-                    <img th:if="${dish.getImage() != null}" th:src="${'data:image/jpeg;charset=utf-8;base64,' + dish.parseImage()}"
+                    <img th:if="${dish.getImage() != null}"
+                         th:src="${'data:image/jpeg;charset=utf-8;base64,' + dish.parseImage()}"
                          class="rounded float-start"
                          style="width: 250px; height: 250px"/>
                     <img th:if="${dish.getImage() == null}" src="/resources/public/images/blank.png"
@@ -24,8 +25,21 @@
                         <h5 class="card-title" th:text="${dish.getName()}"></h5>
                         <p class="card-text" th:text="${'Состав: ' + dish.getIngredients()}"></p>
                         <p class="card-text" th:text="${'Страна: ' + dish.getCountry()}"></p>
-                        <a th:href="@{'/dishes/show/' + ${dish.getDish_id()}}" class="btn btn-primary mt-5">Подробней</a>
-                        <h4 class="card-text mt-5" id="price" th:text="${dish.getPrice() + ' руб.'}"></h4>
+                        <div class="mt-5">
+                            <form method="get" style="display: inline"
+                                th:action="@{'/dishes/show/' + ${dish.getDish_id()}}">
+                                <button type="submit" class="btn btn-primary mt-5">Подробней</button>
+                            </form>
+                            <form th:if="${user == dish.getCook().getUsername()}" method="get" style="display: inline"
+                                  th:action="@{'/dishes/update/' + ${dish.getDish_id()}}">
+                                <button type="submit" class="btn btn-primary mt-5">Изменить</button>
+                            </form>
+                            <form th:if="${user == dish.getCook().getUsername()}" method="post" style="display: inline"
+                                  th:action="@{'/dishes/delete/' + ${dish.getDish_id()}}">
+                                <button type="submit" class="btn btn-primary mt-5">Удалить</button>
+                            </form>
+                            <h4 class="card-text mt-5" id="price" th:text="${dish.getPrice() + ' руб.'}"></h4>
+                        </div>
                     </div>
                 </div>
             </th:block>

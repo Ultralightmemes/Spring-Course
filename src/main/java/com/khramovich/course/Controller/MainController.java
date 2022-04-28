@@ -84,7 +84,7 @@ public class MainController {
         }
         cookService.update(userCook);
         String referer = request.getHeader("Referer");
-        return "redirect:" + referer;
+        return "redirect:/main/account";
     }
 
     @PostMapping("/entry")

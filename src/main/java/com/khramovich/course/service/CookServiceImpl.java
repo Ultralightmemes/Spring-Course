@@ -9,10 +9,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
-public class CookServiceImpl implements CookService{
+public class CookServiceImpl implements CookService {
 
     @Autowired
     private CookDao cookDao;
@@ -40,5 +41,20 @@ public class CookServiceImpl implements CookService{
     @Override
     public void update(Cook cook) {
         cookDao.save(cook);
+    }
+
+    @Override
+    public List<Cook> findAll() {
+        return cookDao.findAll();
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        cookDao.deleteById(id);
+    }
+
+    @Override
+    public Cook getById(Long id) {
+        return cookDao.getById(id);
     }
 }

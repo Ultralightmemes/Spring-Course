@@ -27,4 +27,9 @@ public class DishServiceImpl implements DishService{
     public Dish findById(Long id) {
         return dishDao.getById(id);
     }
+
+    @Override
+    public void deleteById(Long id){
+        dishDao.deleteById(id);
+    }
 }

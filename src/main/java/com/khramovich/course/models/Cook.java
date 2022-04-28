@@ -3,7 +3,9 @@ package com.khramovich.course.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.UnsupportedEncodingException;
 import java.sql.Date;
+import java.util.Base64;
 import java.util.Set;
 
 @Entity
@@ -35,4 +37,11 @@ public class Cook {
     public Date birthday;
     @Lob
     public byte[] image;
+
+    public String parseImage() throws UnsupportedEncodingException {
+        if (image != null) {
+            byte[] encodeBase64 = Base64.getEncoder().encode(image);
+            return new String(encodeBase64, "UTF-8");
+        }else return "";
+    }
 }

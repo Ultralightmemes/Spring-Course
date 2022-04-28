@@ -8,4 +8,8 @@ public interface Dish_setService {
     void save(Dish_set dish_set);
 
     List<Dish_set> findAll();
+
+    void deleteById(Long id);
+
+    Dish_set getById(Long id);
 }
