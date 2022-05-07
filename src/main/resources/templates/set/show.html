@@ -5,27 +5,74 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <title>Title</title>
+    <link rel="stylesheet" href="/resources/public/css/add_set.css">
 </head>
-<body>
-<div class="container mt-3">
+<body style="background-color: blanchedalmond">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/main}">Stolovka</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/welcome}">Начальная страница</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/dishes/show}">Меню</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/sets/show}">Сеты</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/dishes/add}">Добавить блюдо</a>
+                </li>
+            </ul>
+            <form class="d-flex" th:method="GET" th:action="@{/main/account}">
+                <button class="btn btn-outline-warning">Аккаунт</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="container">
     <div class="row">
         <div class="col-3">
-            <img th:if="${dish.getImage() != null}"
-                 th:src="${'data:image/jpeg;charset=utf-8;base64,' + dish.parseImage()}" class="rounded float-start"
+            <img th:if="${set.getImage() != null}"
+                 th:src="${'data:image/jpeg;charset=utf-8;base64,' + set.parseImage()}" class="rounded float-start"
                  style="width: 300px; height: 300px"/>
-            <img th:if="${dish.getImage() == null}" src="/resources/public/images/blank.png" class="rounded float-start"
+            <img th:if="${set.getImage() == null}" src="/resources/public/images/blank.png" class="rounded float-start"
                  style="width: 300px; height: 300px"/>
-            <h3 th:text="${dish.getPrice() + ' руб.'}" class="mt-3" style="text-align: center"></h3>
         </div>
         <div class="col-9">
-            <h1 th:text="${dish.getName()}" style="text-align: center"></h1>
-            <h5 th:text="${'Ингридиенты: ' + dish.getIngredients()}" class="mt-3"></h5>
-            <h5 th:text="${'Страна: ' + dish.getCountry()}"></h5>
-            <h5 th:text="${'Повар: ' + dish.getCook().getName() + dish.getCook().getSurname()}"></h5>
-            <h6 th:text="${dish.getDescription()}"></h6>
+            <h1 th:text="${set.getName()}" style="text-align: center"></h1>
+            <h5 th:text="${'Ингридиенты: ' + set.getDescription()}" class="mt-3"></h5>
         </div>
+    </div>
+    <br>
+    <div class="row">
+        <th:block th:each="dish : ${set.getDishes()}">
+            <div class="card me-3" style="width: 15rem;">
+                <img th:if="${dish.getImage() != null}"
+                     th:src="${'data:image/jpeg;charset=utf-8;base64,' + dish.parseImage()}"
+                     class="card-img-top mt-1" alt="Фотография" style="width: 200px; height: 200px">
+                <img th:if="${dish.getImage() == null}" src="/resources/public/images/blank.png"
+                     class="card-img-top mt-1" alt="Фотография" style="width: 200px; height: 200px">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${dish.getName()}"></h5>
+                    <p class="card-text" th:text="${dish.getIngredients()}"></p>
+                    <div class="formrow" style="max-width: 200px">
+                        <form method="get" th:action="@{'/dishes/show/' + ${dish.getDish_id()}}">
+                            <button type="submit" class="btn">Подробнее</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </th:block>
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/resources/public/js/add_set.js"></script>
 </body>
 </html>

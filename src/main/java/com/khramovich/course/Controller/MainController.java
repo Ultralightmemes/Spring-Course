@@ -3,8 +3,10 @@ package com.khramovich.course.Controller;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.khramovich.course.models.Cook;
+import com.khramovich.course.models.Dish_set;
 import com.khramovich.course.repository.RoleDao;
 import com.khramovich.course.service.CookService;
+import com.khramovich.course.service.Dish_setService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,6 +29,9 @@ public class MainController {
 
     @Autowired
     private CookService cookService;
+
+    @Autowired
+    private Dish_setService setService;
 
     @GetMapping
     public String showMainPage(Model model, HttpServletRequest request) throws IOException {
@@ -95,6 +100,28 @@ public class MainController {
         } else {
             return "redirect:../main/account";
         }
+    }
+
+    @GetMapping("/canvas")
+    public String getCanvas(Model model){
+        List<String> cooks = new ArrayList<>();
+        List<Integer> numDishes = new ArrayList<>();
+        List<String> sets = new ArrayList<>();
+        List<Integer> numSetDishes = new ArrayList<>();
+        for (Cook cook: cookService.findAll()) {
+            cooks.add(cook.getUsername());
+            numDishes.add(cook.getDishes().size());
+        }
+        for (Dish_set set: setService.findAll()){
+            sets.add(set.getName());
+            numSetDishes.add(set.getDishes().size());
+        }
+
+        model.addAttribute("numDishes", numDishes);
+        model.addAttribute("cooks", cooks);
+        model.addAttribute("sets",sets);
+        model.addAttribute("numSetDishes", numSetDishes);
+        return "main/canva";
     }
 
     private java.sql.Date parseDate(String date) {

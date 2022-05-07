@@ -7,7 +7,8 @@
     <title>Title</title>
     <link rel="stylesheet" href="/resources/public/css/add_set.css">
 </head>
-<body>
+<body style="background-color: blanchedalmond">
+<div th:insert="adminNavbar"></div>
 <form th:method="post" th:action="@{'/admin/set/update/' + ${set.getSet_id()}}" enctype="multipart/form-data">
     <nav class="navbar navbar-light bg-light mb-2">
         <div class="container-fluid">

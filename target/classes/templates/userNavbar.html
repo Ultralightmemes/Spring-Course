@@ -1,13 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>Главная</title>
-</head>
-<body style="background-color: blanchedalmond">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="userNavbar">
     <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/main}">Stolovka</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -17,13 +11,19 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{../admin/edit}">Управление сетами</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/welcome}">Начальная страница</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{../admin/set}">Создать сет</a>
+                    <a class="nav-link" th:href="@{/dishes/show}">Меню</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{../admin/users}">Управление пользователями</a>
+                    <a class="nav-link" th:href="@{/sets/show}">Сеты</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/dishes/add}">Добавить блюдо</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/main/canvas}">Графики</a>
                 </li>
             </ul>
             <form class="d-flex" th:method="GET" th:action="@{/main/account}">

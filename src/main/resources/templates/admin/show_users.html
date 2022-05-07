@@ -7,13 +7,14 @@
     <title>Главная</title>
     <link rel="stylesheet" href="/resources/public/css/show.css">
 </head>
-<body>
+<div th:insert="adminNavbar"></div>
+<body style="background-color: blanchedalmond">
 <div class="container">
     <div class="row">
         <div class="col"></div>
         <div class="col-8">
             <th:block th:each="cook : ${cooks}">
-                <div class="card mb-3">
+                <div class="card mt-3" th:if="${cook.getUsername()} != ${username}">
                     <img th:if="${cook.getImage() != null}"
                          th:src="${'data:image/jpeg;charset=utf-8;base64,' + cook.parseImage()}"
                          class="rounded float-start"

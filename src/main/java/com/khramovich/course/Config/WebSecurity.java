@@ -26,12 +26,17 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/registration").permitAll()
+                .antMatchers("/logout").permitAll()
+                .antMatchers("/admin/set").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .antMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .permitAll()
+                .and()
+                .logout()
+                .logoutSuccessUrl("/login")
         ;
     }
 }

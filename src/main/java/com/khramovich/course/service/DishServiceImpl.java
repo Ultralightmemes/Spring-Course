@@ -3,6 +3,7 @@ package com.khramovich.course.service;
 import com.khramovich.course.repository.DishDao;
 import com.khramovich.course.models.Dish;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,5 +32,10 @@ public class DishServiceImpl implements DishService{
     @Override
     public void deleteById(Long id){
         dishDao.deleteById(id);
+    }
+
+    @Override
+    public List<Dish> sortByFieldAsc(String field){
+        return dishDao.findAll(Sort.by(Sort.Direction.ASC, field));
     }
 }

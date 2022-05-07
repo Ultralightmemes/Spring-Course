@@ -8,6 +8,8 @@ import com.khramovich.course.service.CookService;
 import com.khramovich.course.service.DishService;
 import com.khramovich.course.service.Dish_setService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -127,8 +129,11 @@ public class AdminController {
 
     @GetMapping("/users")
     public String showUsers(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
         model.addAttribute("cooks", cookService.findAll());
         model.addAttribute("admin_role", roleDao.getById(2L));
+        model.addAttribute("username", username);
         return "admin/show_users";
     }
 

@@ -12,4 +12,6 @@ public interface DishService {
     Dish findById(Long id);
 
     void deleteById(Long id);
+
+    List<Dish> sortByFieldAsc(String field);
 }
