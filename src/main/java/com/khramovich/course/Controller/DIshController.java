@@ -1,5 +1,6 @@
 package com.khramovich.course.Controller;
 
+import com.khramovich.course.models.Cook;
 import com.khramovich.course.repository.CookDao;
 import com.khramovich.course.repository.DishDao;
 import com.khramovich.course.repository.Dish_setDao;
@@ -8,6 +9,7 @@ import com.khramovich.course.models.Dish_set;
 import com.khramovich.course.service.CookService;
 import com.khramovich.course.service.DishService;
 import com.khramovich.course.service.Dish_setService;
+import com.khramovich.course.service.OrderService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -32,6 +35,9 @@ public class DIshController {
 
     @Autowired
     Dish_setService dish_setService;
+
+    @Autowired
+    OrderService orderService;
 
     @GetMapping("/add")
     public String addDish(Model model) {
@@ -66,6 +72,17 @@ public class DIshController {
     public String showDish(@PathVariable("id") Long dishId, Model model) {
         model.addAttribute("dish", dishService.findById(dishId));
         return "dish/dish";
+    }
+
+    @PostMapping("/order/{id}")
+    public String orderDish(@PathVariable("id") Long dishId, HttpServletRequest request){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Cook cook = cookService.findByUsername(username);
+        cook.getBasket().add(dishService.findById(dishId));
+        cookService.update(cook);
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
     }
 
     @PostMapping("/delete/{id}")

@@ -12,7 +12,7 @@
 <div class="container">
     <div class="row">
         <div class="col"></div>
-        <div class="col-8">
+        <div class="col-9">
             <th:block th:each="dish : ${dishes}">
                 <div class="card mb-3">
                     <img th:if="${dish.getImage() != null}"
@@ -28,7 +28,7 @@
                         <p class="card-text" th:text="${'Страна: ' + dish.getCountry()}"></p>
                         <div class="mt-5">
                             <form method="get" style="display: inline"
-                                th:action="@{'/dishes/show/' + ${dish.getDish_id()}}">
+                                  th:action="@{'/dishes/show/' + ${dish.getDish_id()}}">
                                 <button type="submit" class="btn btn-primary mt-5">Подробней</button>
                             </form>
                             <form th:if="${user == dish.getCook().getUsername()}" method="get" style="display: inline"
@@ -38,6 +38,10 @@
                             <form th:if="${user == dish.getCook().getUsername()}" method="post" style="display: inline"
                                   th:action="@{'/dishes/delete/' + ${dish.getDish_id()}}">
                                 <button type="submit" class="btn btn-primary mt-5">Удалить</button>
+                            </form>
+                            <form method="post" th:action="@{'/dishes/order/' + ${dish.getDish_id()}}"
+                                  th:if="${!dish.getDish_sets().isEmpty()}" style="display: inline">
+                                    <button type="submit" class="btn btn-primary mt-5">Добавить в корзину</button>
                             </form>
                             <h4 class="card-text mt-5" id="price" th:text="${dish.getPrice() + ' руб.'}"></h4>
                         </div>

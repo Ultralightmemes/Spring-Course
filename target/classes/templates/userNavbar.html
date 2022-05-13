@@ -26,6 +26,10 @@
                     <a class="nav-link" th:href="@{/main/canvas}">Графики</a>
                 </li>
             </ul>
+            <form class="d-flex me-3" th:method="GET" th:action="@{/order/basket}">
+                <button class="btn btn-outline-warning">Корзина
+                </button>
+            </form>
             <form class="d-flex" th:method="GET" th:action="@{/main/account}">
                 <button class="btn btn-outline-warning">Аккаунт</button>
             </form>

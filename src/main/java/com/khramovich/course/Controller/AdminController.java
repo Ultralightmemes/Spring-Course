@@ -7,6 +7,7 @@ import com.khramovich.course.repository.RoleDao;
 import com.khramovich.course.service.CookService;
 import com.khramovich.course.service.DishService;
 import com.khramovich.course.service.Dish_setService;
+import com.khramovich.course.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,6 +38,9 @@ public class AdminController {
 
     @Autowired
     private RoleDao roleDao;
+
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/main")
     public String main(Model model) {
@@ -157,5 +161,24 @@ public class AdminController {
         cook.getRoles().add(roleDao.getById(2L));
         cookService.update(cook);
         return "redirect:/admin/users";
+    }
+
+    @GetMapping("/order")
+    public String acceptOrder(Model model){
+        model.addAttribute("orders", orderService.findAll());
+        return "admin/order";
+    }
+
+    @GetMapping("/order/show/{id}")
+    public String showOrder(@ModelAttribute("id") Long id, Model model){
+        model.addAttribute("order", orderService.getById(id));
+        return "admin/show_order";
+    }
+
+    @PostMapping("/order/complete/{id}")
+    public String showOrder(@ModelAttribute("id") Long id, HttpServletRequest request){
+        orderService.deleteById(id);
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
     }
 }

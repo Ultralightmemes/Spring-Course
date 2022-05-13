@@ -8,34 +8,7 @@
     <link rel="stylesheet" href="/resources/public/css/add_set.css">
 </head>
 <body style="background-color: blanchedalmond">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/main}">Stolovka</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/welcome}">Начальная страница</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/dishes/show}">Меню</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/sets/show}">Сеты</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/dishes/add}">Добавить блюдо</a>
-                </li>
-            </ul>
-            <form class="d-flex" th:method="GET" th:action="@{/main/account}">
-                <button class="btn btn-outline-warning">Аккаунт</button>
-            </form>
-        </div>
-    </div>
-</nav>
+<div th:insert="userNavbar"></div>
 <div class="container">
     <div class="row">
         <div class="col-3">

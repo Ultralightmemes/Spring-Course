@@ -26,6 +26,11 @@
             <h6 th:text="${dish.getDescription()}"></h6>
         </div>
     </div>
+    <div class="row" th:if="${!dish.getDish_sets().isEmpty()}">
+        <form method="post" th:action="@{'../order/' + ${dish.getDish_id()}}">
+            <button type="submit" class="btn">Добавить в корзину</button>
+        </form>
+    </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </body>

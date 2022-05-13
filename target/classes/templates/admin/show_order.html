@@ -8,24 +8,18 @@
     <link rel="stylesheet" href="/resources/public/css/add_set.css">
 </head>
 <body style="background-color: blanchedalmond">
-<div th:insert="userNavbar"></div>
+<div th:insert="adminNavbar"></div>
 <div class="container">
     <div class="row">
-        <div class="col-3">
-            <img th:if="${set.getImage() != null}"
-                 th:src="${'data:image/jpeg;charset=utf-8;base64,' + set.parseImage()}" class="rounded float-start"
-                 style="width: 300px; height: 300px"/>
-            <img th:if="${set.getImage() == null}" src="/resources/public/images/blank.png" class="rounded float-start"
-                 style="width: 300px; height: 300px"/>
-        </div>
         <div class="col-9">
-            <h1 th:text="${set.getName()}" style="text-align: center"></h1>
-            <h5 th:text="${'Ингридиенты: ' + set.getDescription()}" class="mt-3"></h5>
+            <h1 th:text="${order.getUser()}" style="text-align: center"></h1>
+            <h5 th:text="${'Комментарий: ' + order.getComment()}" class="mt-3"></h5>
+            <h5 th:text="${'Дата: ' + order.getFinish_date()}" class="mt-3"></h5>
         </div>
     </div>
     <br>
     <div class="row">
-        <th:block th:each="dish : ${set.getDishes()}">
+        <th:block th:each="dish : ${order.getDishes()}">
             <div class="card me-3" style="width: 15rem;">
                 <img th:if="${dish.getImage() != null}"
                      th:src="${'data:image/jpeg;charset=utf-8;base64,' + dish.parseImage()}"

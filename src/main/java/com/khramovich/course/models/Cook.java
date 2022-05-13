@@ -32,16 +32,19 @@ public class Cook {
             inverseJoinColumns = @JoinColumn(name = "dish_id", referencedColumnName = "dish_id"))
     private Set<Dish> dishes;
     public String surname;
+    @ManyToMany
+    @JoinTable(name = "cook_ordered_dishes", joinColumns = @JoinColumn(name = "cook_id", referencedColumnName = "cook_id"),
+            inverseJoinColumns = @JoinColumn(name = "dish_id", referencedColumnName = "dish_id"))
+    private Set<Dish> basket;
     public String position;
     public String education;
     public Date birthday;
     @Lob
     public byte[] image;
-
     public String parseImage() throws UnsupportedEncodingException {
         if (image != null) {
             byte[] encodeBase64 = Base64.getEncoder().encode(image);
             return new String(encodeBase64, "UTF-8");
-        }else return "";
+        } else return "";
     }
 }

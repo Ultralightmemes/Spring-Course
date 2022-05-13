@@ -7,30 +7,6 @@
     <title>Главная</title>
 </head>
 <body style="background-color: blanchedalmond">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/main}">Stolovka</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{../admin/edit}">Управление сетами</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{../admin/set}">Создать сет</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{../admin/users}">Управление пользователями</a>
-                </li>
-            </ul>
-            <form class="d-flex" th:method="GET" th:action="@{/main/account}">
-                <button class="btn btn-outline-warning">Аккаунт</button>
-            </form>
-        </div>
-    </div>
-</nav>
+<div th:insert="adminNavbar"></div>
 </body>
 </html>

@@ -10,7 +10,7 @@
 <body style="background-color: blanchedalmond">
 <div th:insert="adminNavbar"></div>
 <form th:method="post" th:action="@{/admin/set}" enctype="multipart/form-data">
-    <nav class="navbar navbar-light bg-light mb-2">
+    <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
             <div class="col-4">
                 <input class="form-control me-2" type="search" placeholder="Название" aria-label="Search" name="name">
@@ -29,7 +29,7 @@
     <div class="container">
         <div class="row">
             <th:block th:each="dish : ${dishes}">
-                <div class="card me-3" style="width: 15rem;">
+                <div class="card me-3 mt-2" style="width: 15rem;">
                     <img th:if="${dish.getImage() != null}"
                          th:src="${'data:image/jpeg;charset=utf-8;base64,' + dish.parseImage()}"
                          class="card-img-top mt-1" alt="Фотография" style="width: 200px; height: 200px">
