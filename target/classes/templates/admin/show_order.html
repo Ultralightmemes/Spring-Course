@@ -12,7 +12,7 @@
 <div class="container">
     <div class="row">
         <div class="col-9">
-            <h1 th:text="${order.getUser()}" style="text-align: center"></h1>
+            <h1 th:text="${order.getUser().getUsername()}" style="text-align: center"></h1>
             <h5 th:text="${'Комментарий: ' + order.getComment()}" class="mt-3"></h5>
             <h5 th:text="${'Дата: ' + order.getFinish_date()}" class="mt-3"></h5>
         </div>

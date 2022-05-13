@@ -28,6 +28,30 @@
         </div>
         <div class="col"></div>
     </div>
+    <div class="row mt-2">
+        <th:block th:each="dish : ${dishes}">
+            <div class="card me-3 mt-2" style="width: 15rem;">
+                <img th:if="${dish.getImage() != null}"
+                     th:src="${'data:image/jpeg;charset=utf-8;base64,' + dish.parseImage()}"
+                     class="card-img-top mt-1" alt="Фотография" style="width: 200px; height: 200px">
+                <img th:if="${dish.getImage() == null}" src="/resources/public/images/blank.png"
+                     class="card-img-top mt-1" alt="Фотография" style="width: 200px; height: 200px">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${dish.getName()}"></h5>
+                    <p class="card-text" th:text="${dish.getIngredients()}"></p>
+                    <div class="formrow" style="max-width: 200px">
+                        <form th:action="@{'/order/delete/' + ${dish.getDish_id()}}" method="post">
+                            <button type="submit" class="btn btn-primary mt-5">Удалить</button>
+                        </form>
+<!--                        <input class="checkbox" type="checkbox" name="check" th:id="${'check'+ dish.getDish_id()}"-->
+<!--                               th:value="${dish.getDish_id()}">-->
+<!--                        <label class="checklabel" th:for="${'check'+ dish.getDish_id()}"-->
+<!--                               style="max-width: 200px">Добавить</label>-->
+                    </div>
+                </div>
+            </div>
+        </th:block>
+    </div>
 </div>
 </body>
 </html>

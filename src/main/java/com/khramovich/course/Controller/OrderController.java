@@ -60,6 +60,17 @@ public class OrderController {
         return "redirect:" + referer;
     }
 
+    @PostMapping("/delete/{id}")
+    public String deleteDish(@ModelAttribute("id") Long id, HttpServletRequest request){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Cook cook = cookService.findByUsername(username);
+        cook.getBasket().remove(dishService.findById(id));
+        cookService.update(cook);
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
+    }
+
     private java.sql.Date parseDate(String date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date parsed = null;
